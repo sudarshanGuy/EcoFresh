@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoFresh - Controls</title>
+    <script src="https://static.elfsight.com/platform/platform.js" async></script> <div class="elfsight-app-709fd6ec-0f7d-4c3a-afbb-58164db84f01" data-elfsight-app-lazy></div> <script src="https://static.elfsight.com/platform/platform.js" async></script> <div class="elfsight-app-8295fb8d-12b0-4798-b95e-6685da32a7fe" data-elfsight-app-lazy></div>
+<h3>The KWH for each of the buttons is for the time period of 1 hour. If you use somthing for, eg: 4 hours: click it 4 times</h3>
+    <style>
+        /* Fade-in effect */
+body {
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #D3E6D0;
+            text-align: center;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .box {
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 90%;
+            max-width: 400px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button:hover {
+            background-color: #575757;
+            transform: scale(1.1);
+        }
+
+        button img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        h2 {
+            margin: 10px 0;
+        }
+
+        .clear-button {
+            background-color: red;
+        }
+
+        /* Instagram Link and Icon */
+        .instagram-link {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: block;
+        }
+
+        .instagram-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Container for energy categories */
+        .category {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .category div {
+            width: 45%;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .category div:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .category h3 {
+            margin: 0 0 10px;
+        }
+
+        .schedule-box {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .schedule-box input {
+            padding: 10px;
+            margin: 10px;
+            width: 80%;
+        }
+
+        /* Date and Time Box */
+        .date-time-box {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .energy-category {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        let totalEnergy = 0;
+        let selectedDate = ""; 
+
+        function addEnergy(amount) {
+            totalEnergy += amount;
+            document.getElementById("energy-total").textContent = totalEnergy.toFixed(2) + " kWh";
+            checkEnergyThreshold();
+        }
+
+        function checkEnergyThreshold() {
+            if (totalEnergy >= 850 && totalEnergy < 900) {
+                showEcoTips("Eco Tips: Turn off unused devices, use energy-efficient appliances.");
+            }
+            if (totalEnergy >= 900 && totalEnergy < 1000) {
+                showEcoTips("Eco Tips: Consider reducing heating or cooling usage.");
+            }
+            if (totalEnergy >= 1000 && totalEnergy < 1100) {
+                showEcoTips("Emergency! Too much energy usage! Unplug devices, use LED lights, adjust your thermostat.");
+            }
+            if (totalEnergy >= 1100) {
+                showEcoTips("Emergency! Extremely high usage! Consider turning off major appliances immediately.");
+            }
+        }
+
+        function showEcoTips(message) {
+            alert(message);
+        }
+
+        function setDate() {
+            selectedDate = document.getElementById("date-picker").value;
+            document.getElementById("selected-date-display").textContent = "Selected Date: " + selectedDate;
+        }
+
+        function clearEnergy() {
+            totalEnergy = 0;
+            document.getElementById("energy-total").textContent = "0.00 kWh";
+            document.getElementById("selected-date-display").textContent = "Selected Date: None";
+            alert("Energy consumption has been reset.");
+        }
+    </script>
+</head>
+<body>
+
+
+    <a href="https://www.instagram.com/ecofresh_theapp" target="_blank" class="instagram-link">
+        <img src="instagram-icon.png" alt="Instagram" class="instagram-icon">
+    </a>
+
+    <div class="navbar">
+        <a href="Home Page.html">Home</a>
+        <a href="About.html">About</a>
+        <a href="Controls.html">Controls</a>
+        <a href="feedback..html">Feedback</a>
+    </div>
+
+    <div class="box">
+        <h1>Welcome to EcoFresh Controls!</h1>
+        <h2>Energy Total: <span id="energy-total">0.00 kWh</span></h2>
+        <!-- Clear Energy Button -->
+        <button class="clear-button" onclick="clearEnergy()">Clear Energy</button>
+    </div>
+
+    <!-- Categories for Energy Use -->
+    <div class="category">
+        <div>
+            <h3>Entertainment</h3>
+            <button onclick="addEnergy(100)">
+                <img src="server.png" alt="Server"> Server (100 kWh)
+            </button><br>
+            <button onclick="addEnergy(50)">
+                <img src="computer.png" alt="PC"> PC (50 kWh)
+            </button><br>
+            <button onclick="addEnergy(25)">
+                <img src="game-console.png" alt="Gaming Console"> Gaming Console (25 kWh)
+            </button><br>
+            <button onclick="addEnergy(30)">
+                <img src="television.png" alt="TV"> Large TV (30 kWh)
+            </button>
+        </div>
+
+        <div>
+            <h3>Appliances</h3>
+            <button onclick="addEnergy(60)">
+                <img src="air-conditioner.png" alt="Air Conditioner"> Air Conditioner (60 kWh)
+            </button><br>
+            <button onclick="addEnergy(20)">
+                <img src="fridge.png" alt="Fridge"> Refrigerator (20 kWh)
+            </button><br>
+            <button onclick="addEnergy(40)">
+                <img src="water-heater.png" alt="Water Heater"> Water Heater (40 kWh)
+            </button><br>
+            <button onclick="addEnergy(15)">
+                <img src="microwave-oven.png" alt="Microwave"> Microwave (15 kWh)
+            </button>
+        </div>
+    </div>
+
+    <div class="category">
+        <div>
+            <h3>Lighting</h3>
+            <button onclick="addEnergy(10)">
+                <img src="lightbulb.png" alt="Living Room Lights"> Living Room Lights (10 kWh)
+            </button><br>
+            <button onclick="addEnergy(5)">
+                <img src="lightbulb.png" alt="Bedroom Lights"> Bedroom Lights (5 kWh)
+            </button><br>
+            <button onclick="addEnergy(2)">
+                <img src="lightbulb.png" alt="LED Lights"> LED Lights (2 kWh)
+            </button>
+        </div>
+
+        <div>
+            <h3>Others</h3>
+            <button onclick="addEnergy(25)">
+                <img src="dish-washer.png" alt="Dishwasher"> Dishwasher (25 kWh)
+            </button><br>
+            <button onclick="addEnergy(35)">
+                <img src="dish-washer.png" alt="Washing Machine"> Washing Machine (35 kWh)
+            </button>
+        </div>
+    </div>
+
+    <div class="schedule-box">
+        <h3>Schedule Energy Usage</h3>
+        <input type="date" id="date-picker"><br>
+        <button onclick="setDate()">Set Date</button>
+        <p id="selected-date-display">Selected Date: 1/1/2025</p>
+    </div>
+
+    <div class="date-time-box">
+        <h3>Energy for the Day</h3>
+        <p id="selected-date-display">Selected Date: 16/1/2025</p>
+    </div>
+
+</body>
+</html>
